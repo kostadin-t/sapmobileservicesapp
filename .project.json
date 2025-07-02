@@ -1,0 +1,40 @@
+{
+	"Credential": "cf",
+	"Template": {
+		"Id": "@ext-mdkvsc-npm-dev/generator-mdk",
+		"Name": "Base",
+		"Version": "0.0.1"
+	},
+	"CF": {
+		"Target": "https://api.cf.us10-001.hana.ondemand.com",
+		"Organization": "e7d24d3b-6610-4ffc-b183-adf0ceb7a4a0",
+		"Space": "8d7134ef-7ce9-4a18-8060-6665d7a11b20"
+	},
+	"MobileService": {
+		"Type": "standard",
+		"AdminAPI": "https://mobile-service-cockpit-api.cfapps.us10.hana.ondemand.com/cockpit/v1/org/e7d24d3b-6610-4ffc-b183-adf0ceb7a4a0/space/8d7134ef-7ce9-4a18-8060-6665d7a11b20",
+		"AppId": "myapp.mdk.demo",
+		"Destination": [
+			"com.sap.edm.sampleservice.v4"
+		]
+	},
+	"Onboarding": {
+		"Schema": "sapmobilesvcs",
+		"TimeZone": "UTC",
+		"URL": "sapmobilesvcs://?AppId=myapp.mdk.demo&ClientId=e9a0b36c-34ea-4b0d-aa02-f77bbf5793e2&ServerUrl=https://dev-terraform-28043a52-2448-8468-b341-eff625a308d1-mya-nla6lvvj.cfapps.us10-001.hana.ondemand.com&SapCloudPlatformEndpoint=https://dev-terraform-28043a52-2448-8468-b341-eff625a308d1-mya-nla6lvvj.cfapps.us10-001.hana.ondemand.com&AuthorizationEndpointUrl=https://dev-terraform-28043a52-2448-8468-b341-eff625a308d1-mya-nla6lvvj.cfapps.us10-001.hana.ondemand.com/oauth2/api/v1/authorize&RedirectUrl=https://dev-terraform-28043a52-2448-8468-b341-eff625a308d1-mya-nla6lvvj.cfapps.us10-001.hana.ondemand.com&TokenUrl=https://dev-terraform-28043a52-2448-8468-b341-eff625a308d1-mya-nla6lvvj.cfapps.us10-001.hana.ondemand.com/oauth2/api/v1/token&multiUser=false"
+	},
+	"LCAP": {
+		"FullName": "",
+		"Service": [],
+		"sourceTemplate": {
+			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+			"version": "1.40.12"
+		}
+	},
+	"Build": {
+		"SourceMap": true,
+		"TSTarget": "es6",
+		"WMF": true,
+		"Platform": "iOS & Android"
+	}
+}
