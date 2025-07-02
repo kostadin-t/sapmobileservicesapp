@@ -64,8 +64,19 @@
 	"_Type": "Page",
 	"_Name": "Customers_List",
 	"ActionBar": {
-		"Items": [],
-		"_Name": "ActionBar1",
+		"Items": [
+			{
+				"_Type": "Control.Type.ActionBarItem",
+				"_Name": "ActionBarItem0",
+				"Caption": "Item",
+				"SystemItem": "Add",
+				"Position": "Right",
+				"IsIconCircular": false,
+				"Visible": true,
+				"OnPress": "/demosampleapp/Actions/NavToCustomers_Create.action"
+			}
+		],
+		"_Name": "ActionBar0",
 		"_Type": "Control.Type.ActionBar",
 		"Caption": "Customers"
 	}
