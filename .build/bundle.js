@@ -59,6 +59,7 @@ let demosampleapp_actions_navtocustomers_detail_action = __webpack_require__(/*!
 let demosampleapp_actions_navtocustomers_edit_action = __webpack_require__(/*! ./demosampleapp/Actions/NavToCustomers_Edit.action */ "./build.definitions/demosampleapp/Actions/NavToCustomers_Edit.action")
 let demosampleapp_actions_navtocustomers_list_action = __webpack_require__(/*! ./demosampleapp/Actions/NavToCustomers_List.action */ "./build.definitions/demosampleapp/Actions/NavToCustomers_List.action")
 let demosampleapp_actions_updatecustomerentityfailuremessage_action = __webpack_require__(/*! ./demosampleapp/Actions/UpdateCustomerEntityFailureMessage.action */ "./build.definitions/demosampleapp/Actions/UpdateCustomerEntityFailureMessage.action")
+let demosampleapp_actions_validationfailure_action = __webpack_require__(/*! ./demosampleapp/Actions/ValidationFailure.action */ "./build.definitions/demosampleapp/Actions/ValidationFailure.action")
 let demosampleapp_globals_application_appdefinition_version_global = __webpack_require__(/*! ./demosampleapp/Globals/Application/AppDefinition_Version.global */ "./build.definitions/demosampleapp/Globals/Application/AppDefinition_Version.global")
 let demosampleapp_globals_application_applicationname_global = __webpack_require__(/*! ./demosampleapp/Globals/Application/ApplicationName.global */ "./build.definitions/demosampleapp/Globals/Application/ApplicationName.global")
 let demosampleapp_globals_application_supportemail_global = __webpack_require__(/*! ./demosampleapp/Globals/Application/SupportEmail.global */ "./build.definitions/demosampleapp/Globals/Application/SupportEmail.global")
@@ -82,6 +83,7 @@ let demosampleapp_rules_application_getclientversion_js = __webpack_require__(/*
 let demosampleapp_rules_application_onwillupdate_js = __webpack_require__(/*! ./demosampleapp/Rules/Application/OnWillUpdate.js */ "./build.definitions/demosampleapp/Rules/Application/OnWillUpdate.js")
 let demosampleapp_rules_application_resetappsettingsandlogout_js = __webpack_require__(/*! ./demosampleapp/Rules/Application/ResetAppSettingsAndLogout.js */ "./build.definitions/demosampleapp/Rules/Application/ResetAppSettingsAndLogout.js")
 let demosampleapp_rules_com_sap_edm_sampleservice_v4_errorarchive_checkforsyncerror_js = __webpack_require__(/*! ./demosampleapp/Rules/com_sap_edm_sampleservice_v4/ErrorArchive_CheckForSyncError.js */ "./build.definitions/demosampleapp/Rules/com_sap_edm_sampleservice_v4/ErrorArchive_CheckForSyncError.js")
+let demosampleapp_rules_emailvalidation_js = __webpack_require__(/*! ./demosampleapp/Rules/EmailValidation.js */ "./build.definitions/demosampleapp/Rules/EmailValidation.js")
 let demosampleapp_rules_logging_loglevels_js = __webpack_require__(/*! ./demosampleapp/Rules/Logging/LogLevels.js */ "./build.definitions/demosampleapp/Rules/Logging/LogLevels.js")
 let demosampleapp_rules_logging_settracecategories_js = __webpack_require__(/*! ./demosampleapp/Rules/Logging/SetTraceCategories.js */ "./build.definitions/demosampleapp/Rules/Logging/SetTraceCategories.js")
 let demosampleapp_rules_logging_setuserloglevel_js = __webpack_require__(/*! ./demosampleapp/Rules/Logging/SetUserLogLevel.js */ "./build.definitions/demosampleapp/Rules/Logging/SetUserLogLevel.js")
@@ -141,6 +143,7 @@ module.exports = {
 	demosampleapp_actions_navtocustomers_edit_action : demosampleapp_actions_navtocustomers_edit_action,
 	demosampleapp_actions_navtocustomers_list_action : demosampleapp_actions_navtocustomers_list_action,
 	demosampleapp_actions_updatecustomerentityfailuremessage_action : demosampleapp_actions_updatecustomerentityfailuremessage_action,
+	demosampleapp_actions_validationfailure_action : demosampleapp_actions_validationfailure_action,
 	demosampleapp_globals_application_appdefinition_version_global : demosampleapp_globals_application_appdefinition_version_global,
 	demosampleapp_globals_application_applicationname_global : demosampleapp_globals_application_applicationname_global,
 	demosampleapp_globals_application_supportemail_global : demosampleapp_globals_application_supportemail_global,
@@ -164,6 +167,7 @@ module.exports = {
 	demosampleapp_rules_application_onwillupdate_js : demosampleapp_rules_application_onwillupdate_js,
 	demosampleapp_rules_application_resetappsettingsandlogout_js : demosampleapp_rules_application_resetappsettingsandlogout_js,
 	demosampleapp_rules_com_sap_edm_sampleservice_v4_errorarchive_checkforsyncerror_js : demosampleapp_rules_com_sap_edm_sampleservice_v4_errorarchive_checkforsyncerror_js,
+	demosampleapp_rules_emailvalidation_js : demosampleapp_rules_emailvalidation_js,
 	demosampleapp_rules_logging_loglevels_js : demosampleapp_rules_logging_loglevels_js,
 	demosampleapp_rules_logging_settracecategories_js : demosampleapp_rules_logging_settracecategories_js,
 	demosampleapp_rules_logging_setuserloglevel_js : demosampleapp_rules_logging_setuserloglevel_js,
@@ -435,6 +439,34 @@ function ResetAppSettingsAndLogout(clientAPI) {
   } finally {
     // Logout 
     return clientAPI.getPageProxy().executeAction('/demosampleapp/Actions/Application/Reset.action');
+  }
+}
+
+/***/ }),
+
+/***/ "./build.definitions/demosampleapp/Rules/EmailValidation.js":
+/*!******************************************************************!*\
+  !*** ./build.definitions/demosampleapp/Rules/EmailValidation.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ EmailValidation)
+/* harmony export */ });
+/**
+* Describe this function...
+* @param {IClientAPI} context
+*/
+function EmailValidation(context) {
+  //The following evaluateTargetPath will retrieve the current value of the email control
+  if (context.evaluateTargetPath('#Control:FCEmail/#Value').indexOf('@') === -1) {
+    //If email value does not contain @ display a validation failure message to the end-user
+    context.executeAction('/demosampleapp/Actions/ValidationFailure.action');
+  } else {
+    //If @ is present in the email value, return true to indicate validation is successful
+    return true;
   }
 }
 
@@ -1263,7 +1295,7 @@ module.exports = {"_Type":"Action.Type.ClosePage"}
   \*******************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.ODataService.UpdateEntity","ActionResult":{"_Name":"Customers_UpdateEntity"},"OnFailure":"/demosampleapp/Actions/UpdateCustomerEntityFailureMessage.action","OnSuccess":"/demosampleapp/Actions/CloseModalPage_Complete.action","Target":{"Service":"/demosampleapp/Services/com_sap_edm_sampleservice_v4.service","EntitySet":"Customers","ReadLink":"{@odata.readLink}"},"Properties":{"EmailAddress":"#Page:Customers_Edit/#Control:FCEmail/#Value","FirstName":"#Page:Customers_Edit/#Control:FCFirstName/#Value","LastName":"#Page:Customers_Edit/#Control:FCLastName/#Value","PhoneNumber":"#Page:Customers_Edit/#Control:FCPhone/#Value"}}
+module.exports = {"_Type":"Action.Type.ODataService.UpdateEntity","ActionResult":{"_Name":"Customers_UpdateEntity"},"OnFailure":"/demosampleapp/Actions/UpdateCustomerEntityFailureMessage.action","OnSuccess":"/demosampleapp/Actions/CloseModalPage_Complete.action","ValidationRule":"/demosampleapp/Rules/EmailValidation.js","Target":{"Service":"/demosampleapp/Services/com_sap_edm_sampleservice_v4.service","EntitySet":"Customers","ReadLink":"{@odata.readLink}"},"Properties":{"EmailAddress":"#Page:Customers_Edit/#Control:FCEmail/#Value","FirstName":"#Page:Customers_Edit/#Control:FCFirstName/#Value","LastName":"#Page:Customers_Edit/#Control:FCLastName/#Value","PhoneNumber":"#Page:Customers_Edit/#Control:FCPhone/#Value"}}
 
 /***/ }),
 
@@ -1414,6 +1446,16 @@ module.exports = {"_Type":"Action.Type.Navigation","ActionResult":{"_Name":"NavT
 /***/ ((module) => {
 
 module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"UpdateCustomerEntityFailureMessage"},"Message":"Failed to Save Customer Updates - {#ActionResults:Customers_UpdateEntity/error}","Title":"Update Customer","OKCaption":"OK"}
+
+/***/ }),
+
+/***/ "./build.definitions/demosampleapp/Actions/ValidationFailure.action":
+/*!**************************************************************************!*\
+  !*** ./build.definitions/demosampleapp/Actions/ValidationFailure.action ***!
+  \**************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"ValidationFailure"},"Message":"Email address is not in the correct format recipient @ domain . domaintype","Title":"Validate Email","OKCaption":"OK"}
 
 /***/ }),
 
